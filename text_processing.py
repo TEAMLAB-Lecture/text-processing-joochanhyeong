@@ -12,7 +12,7 @@ def normalize(input_string):
     """
      인풋으로 받는 스트링에서 정규화된 스트링을 반환함
      아래의 요건들을 충족시켜야함
-    * 모든 단어들은 소문자로 되어야함
+    * 모든 단어들은 소문자로 되어야함 --> 
     * 띄어쓰기는 한칸으로 되어야함
     * 앞뒤 필요없는 띄어쓰기는 제거해야함
 
@@ -33,8 +33,35 @@ def normalize(input_string):
              >>> tp.normalize(input_string2)
              'extra space'
     """
-    normalized_string = None
-    return normalized_string
+    if(len(input_string)==0):
+        return ""
+    normalized=input_string.lower()
+    if(normalized[0]==' '):
+        for idx,e in enumerate(normalized):
+            if(e==" "):
+                continue
+            else:
+                normalized=normalized[idx:]
+                break
+    if(normalized[-1]==' '):
+        for idx,e in enumerate(reversed(normalized)):
+            if(e==" "):
+                continue
+            else:
+                normalized=normalized[:-idx]
+                break
+    temp=""
+    check=False
+    for e in normalized:
+        if(e==" "):
+            check=True
+        else:
+            if(check):
+                check=False
+                temp+=" "
+            temp+=e
+    normalized=temp[:]
+    return normalized
 
 
 def no_vowels(input_string):
@@ -58,5 +85,16 @@ def no_vowels(input_string):
             >>> tp.normalize(input_string2)
             ''W lv Pythn!'
     """
-    no_vowel_string = None
+    no_vowel_string = ""
+    for idx,e in enumerate(input_string.lower()):
+        if(e=='a' or e=='e' or e=='i' or e=='o' or e=='u'):
+            continue
+        no_vowel_string+=input_string[idx]
     return no_vowel_string
+
+# print(normalize("This is an example."))
+# print(normalize("   EXTRA   SPA    CE   "))
+# print(no_vowels("This is an example."))
+# print(no_vowels("We love Python!"))
+
+
